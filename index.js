@@ -1,3 +1,29 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getDatabase, ref, push } from "firebase/database";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBJLPA-dhN-0rNLEwFTfwRqAhAe6ErpWaU",
+  authDomain: "visitugandawb1.firebaseapp.com",
+  projectId: "visitugandawb1",
+  storageBucket: "visitugandawb1.appspot.com",
+  messagingSenderId: "915855219518",
+  appId: "1:915855219518:web:c193799bf9219da7442a6f",
+  measurementId: "G-CF7YY1VW8K"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const database = getDatabase(app);
+
+// Function to save booking details to the database
+export function saveBookingDetailsToDatabase(bookingDetails) {
+  const bookingsRef = ref(database);
+  push(bookingsRef, bookingDetails);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const bookButtons = document.querySelectorAll(".btn-secondary");
 
@@ -79,4 +105,4 @@ function triggerIntaSendPayment(bookingDetails) {
   paymentButton.click();
 }
 
-function saveBookingDetailsToDatabase(bookingDetails)
+// function saveBookingDetailsToDatabase(bookingDetails)

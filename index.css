@@ -139,9 +139,17 @@
     color: black;
   }
   
-  .btn-secondary { border-color: var(--white); }
-  
-  .btn-secondary:is(:hover, :focus) { background: hsla(0, 0%, 100%, 0.1); }
+.btn-secondary {
+  background-color: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: hsla(0, 0%, 100%, 0.1);
+  color: white;
+}
   
   .h1,
   .h2,

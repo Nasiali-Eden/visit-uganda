@@ -13,17 +13,11 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet">
-  
-  <!-- 
-    - custom js link
-  -->
   <script src="index.js"></script>
-
-  <!-- 
-    - ionicon link
-  -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.20.0/firebase-database-compat.js"></script>
 
 </head>
 
@@ -132,7 +126,7 @@
           <div class="btn-group">
             <button class="btn btn-primary">Learn more</button>
 
-            <button class="btn btn-secondary">Book now</button>
+            <button class="btn btn-secondary">Book Now</button>
           </div>
 
         </div>
@@ -142,51 +136,11 @@
 
 
 
-      <!-- 
-        - #TOUR SEARCH
-      -->
-
-      <section class="tour-search">
-        <div class="container">
-
-          <form action="" class="tour-search-form">
-
-            <div class="input-wrapper">
-              <label for="destination" class="input-label">Search Destination*</label>
-
-              <input type="text" name="destination" id="destination" required placeholder="Enter Destination"
-                class="input-field">
-            </div>
-
-            <div class="input-wrapper">
-              <label for="people" class="input-label">Pax Number*</label>
-
-              <input type="number" name="people" id="people" required placeholder="No.of People" class="input-field">
-            </div>
-
-            <div class="input-wrapper">
-              <label for="checkin" class="input-label">Checkin Date**</label>
-
-              <input type="date" name="checkin" id="checkin" required class="input-field">
-            </div>
-
-            <div class="input-wrapper">
-              <label for="checkout" class="input-label">Checkout Date*</label>
-
-              <input type="date" name="checkout" id="checkout" required class="input-field">
-            </div>
-
-            <button type="submit" class="btn btn-secondary">Inquire now</button>
-
-          </form>
-
-        </div>
-      </section>
-
-
-
-
-
+      
+      
+      
+      
+      
       <!-- 
         - #POPULAR
       -->
@@ -206,7 +160,7 @@
 
             <li>
               <div class="popular-card">
-
+                
                 <figure class="card-img">
                   <img src="gorilla-7780902_1280.jpg" alt="Gorilla Trakking" loading="lazy">
                 </figure>
@@ -240,11 +194,11 @@
 
             <li>
               <div class="popular-card">
-
+                
                 <figure class="card-img">
                   <img src="murchison-falls-view.jpg" alt="murchisonfalls" loading="lazy">
                 </figure>
-
+                
                 <div class="card-content">
 
                   <div class="card-rating">
@@ -254,7 +208,7 @@
                     <ion-icon name="star"></ion-icon>
                     <ion-icon name="star"></ion-icon>
                   </div>
-
+                  
                   <p class="card-subtitle">
                     <a href="#">Northwest Uganda</a>
                   </p>
@@ -266,19 +220,19 @@
                   <p class="card-text">
                     Where the Nile River surges through a narrow gap over a massive drop.
                   </p>
-
+                  
                 </div>
-
+                
               </div>
             </li>
-
+            
             <li>
               <div class="popular-card">
-
+                
                 <figure class="card-img">
                   <img src="animal-2407297_1280.jpg" alt="ziwa rhino" loading="lazy">
                 </figure>
-
+                
                 <div class="card-content">
 
                   <div class="card-rating">
@@ -288,28 +242,28 @@
                     <ion-icon name="star"></ion-icon>
                     <ion-icon name="star"></ion-icon>
                   </div>
-
+                  
                   <p class="card-subtitle">
                     <a href="#">Nakitoma, Uganda</a>
                   </p>
-
+                  
                   <h3 class="h3 card-title">
                     <a href="#">Ziwa Rhino sanctuary</a>
                   </h3>
-
+                  
                   <p class="card-text">
                     Established in 2005 to re-introduce Southern White Rhinos in the wild.
                   </p>
 
                 </div>
-
+                
               </div>
             </li>
-
+            
           </ul>
-
+          
           <button class="btn btn-primary">More destinations</button>
-
+          
         </div>
       </section>
 
@@ -344,7 +298,7 @@
                 <div class="card-content">
 
                   <h3 class="h3 card-title">Experience The Great Holiday On Beach</h3>
-
+                  
                   <p class="card-text">
                     The two most stunning attractions in the Lake Victoria Basin are Rubondo Island National Park and the Ssese Islands. Lake Victoria supports a thriving fishing and agricultural industry as well as a busy transport industry.
                   </p>
@@ -392,16 +346,16 @@
                       <ion-icon name="star"></ion-icon>
                       <ion-icon name="star"></ion-icon>
                     </div>
-
+                    
                   </div>
-
+                  
                   <p class="price">
                     $350
                     <span>/ per person</span>
                   </p>
-
+                  
                   <button class="btn btn-secondary">Book Now</button>
-
+                  
                 </div>
 
               </div>
@@ -505,7 +459,7 @@
                         <p class="text">7D/6N</p>
                       </div>
                     </li>
-
+                    
                     <li class="card-meta-item">
                       <div class="meta-box">
                         <ion-icon name="people"></ion-icon>
@@ -550,20 +504,58 @@
                   <button class="btn btn-secondary">Book Now</button>
 
                 </div>
-
+                
               </div>
             </li>
-
+            
           </ul>
-
+          
           <button class="btn btn-primary">View All Packages</button>
+          
+        </div>
+      </section>
+      
+      
+      <!-- 
+        - #TOUR SEARCH
+      -->
+
+      <section class="tour-search">
+        <div class="container">
+
+          <form action="" class="tour-search-form">
+
+            <div class="input-wrapper">
+              <label for="destination" class="input-label">Search Destination*</label>
+
+              <input type="text" name="destination" id="destination" required placeholder="Enter Destination"
+                class="input-field">
+            </div>
+
+            <div class="input-wrapper">
+              <label for="people" class="input-label">Pax Number*</label>
+
+              <input type="number" name="people" id="people" required placeholder="No.of People" class="input-field">
+            </div>
+
+            <div class="input-wrapper">
+              <label for="checkin" class="input-label">Checkin Date**</label>
+
+              <input type="date" name="checkin" id="checkin" required class="input-field">
+            </div>
+
+            <div class="input-wrapper">
+              <label for="checkout" class="input-label">Checkout Date*</label>
+
+              <input type="date" name="checkout" id="checkout" required class="input-field">
+            </div>
+
+            <button type="submit" class="btn btn-secondary">Inquire now</button>
+
+          </form>
 
         </div>
       </section>
-
-
-
-
 
       <!-- 
         - #GALLERY
