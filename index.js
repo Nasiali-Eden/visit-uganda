@@ -1,7 +1,31 @@
-'use strict';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getDatabase, ref, push } from "firebase/database";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBJLPA-dhN-0rNLEwFTfwRqAhAe6ErpWaU",
+  authDomain: "visitugandawb1.firebaseapp.com",
+  projectId: "visitugandawb1",
+  storageBucket: "visitugandawb1.appspot.com",
+  messagingSenderId: "915855219518",
+  appId: "1:915855219518:web:c193799bf9219da7442a6f",
+  measurementId: "G-CF7YY1VW8K"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const database = getDatabase(app);
+
+// Function to save booking details to the database
+export function saveBookingDetailsToDatabase(bookingDetails) {
+  const bookingsRef = ref(database);
+  push(bookingsRef, bookingDetails);
+}
 
 document.addEventListener("DOMContentLoaded", () => {
-  const bookButtons = document.querySelectorAll(".btn-secondary"); // Use the correct class selector
+  const bookButtons = document.querySelectorAll(".btn-secondary");
 
   bookButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
@@ -15,52 +39,24 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function openBookingPage(placeName, placeDescription) {
-  const bookingPage = document.createElement("div");
-  bookingPage.classList.add("booking-page");
-  bookingPage.innerHTML = `
-    <h2>Book Your Stay at ${placeName}</h2>
-    <p>${placeDescription}</p>
-    <form class="booking-form">
-      <label for="visitors">Number of Visitors:</label>
-      <input type="number" id="visitors" name="visitors" min="1" required>
-      <label for="days">Number of Stay Days:</label>
-      <input type="number" id="days" name="days" min="1" required>
-      <label for="meals">Full Board Meals:</label>
-      <select id="meals" name="meals" required>
-        <option value="yes">Yes</option>
-        <option value="no">No</option>
-      </select>
-      <label for="additional">Additional Requests:</label>
-      <textarea id="additional" name="additional"></textarea>
-      <button type="submit" class="intaSendPayButton">Confirm Booking</button>
-    </form>
-    <button class="btn back-btn">Back</button>
-  `;
+  fetch("./index.html")
+    .then(response => response.text())
+    .then(html => {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, "text/html");
+      const bookingPage = doc.querySelector(".booking-page");
+      document.body.innerHTML = "";
+      document.body.appendChild(bookingPage);
 
-  document.body.innerHTML = "";
-  document.body.appendChild(bookingPage);
+      document.querySelector(".back-btn").addEventListener("click", () => {
+        location.reload();
+      });
 
-  document.querySelector(".back-btn").addEventListener("click", () => {
-    location.reload(); // Reload the page to go back to the main list
-  });
-
-  document.querySelector(".booking-form").addEventListener("submit", handleBookingFormSubmit);
-}
-
-function handleBookingFormSubmit(event) {
-  event.preventDefault(); // Prevent the form from submitting
-
-  // Retrieve form data
-  const formData = new FormData(event.target);
-  const visitors = formData.get("visitors");
-  const days = formData.get("days");
-  const meals = formData.get("meals");
-  const additional = formData.get("additional");
-
-  // Perform further actions with the form data
-  // For example, you can send the data to a server using AJAX or fetch
-
-  // Optionally, you can show a success or error message to the user
+      document.querySelector(".booking-form").addEventListener("submit", handleBookingFormSubmit);
+    })
+    .catch(error => {
+      console.error("Error loading HTML file:", error);
+    });
 }
 
 function handleBookingFormSubmit(event) {
@@ -75,8 +71,8 @@ function handleBookingFormSubmit(event) {
     additional: formData.get("additional"),
   };
 
-  // Proceed to IntaSend Payment
   triggerIntaSendPayment(bookingDetails);
+  saveBookingDetailsToDatabase(bookingDetails);
 }
 
 function triggerIntaSendPayment(bookingDetails) {
@@ -87,46 +83,26 @@ function triggerIntaSendPayment(bookingDetails) {
     return;
   }
 
-  // Initialize IntaSend
   const intasend = new window.IntaSend({
     publicAPIKey: "ISPubKey_test_ee5f4860-80fb-4670-a8ef-3258658af886",
-    live: false, // set to true when going live
+    live: false,
   });
 
-  // Attach event listeners
   intasend.on("COMPLETE", (results) => {
     console.log("Payment successful", results);
-    // Handle successful payment (e.g., save booking details to your database)
+    saveBookingDetailsToDatabase(bookingDetails);
   });
   intasend.on("FAILED", (results) => {
     console.log("Payment failed", results);
-    // Handle payment failure
   });
   intasend.on("IN-PROGRESS", (results) => {
     console.log("Payment in progress", results);
   });
 
-  // Update the button attributes
-  paymentButton.dataset.amount = 10; // Replace with actual amount based on bookingDetails
+  paymentButton.dataset.amount = 10;
   paymentButton.dataset.currency = "KES";
 
-  // Simulate button click
   paymentButton.click();
 }
 
-
-/// firebase lesson starts here...
-function saveBookingDetailsToDatabase(bookingDetails) {
-  const userId = "user123"; // Replace with actual user ID
-  const dbRef = ref(database, "bookings/" + userId);
-  set(dbRef, {
-    ...bookingDetails,
-  })
-    .then(() => {
-      console.log("Booking details saved successfully");
-      //optionally, show show a success message to user
-    })
-    .catch((error) => {
-      console.error("Error saving booking details:", error);
-    });//optionally, show show an error message to user
-}
+// function saveBookingDetailsToDatabase(bookingDetails)
